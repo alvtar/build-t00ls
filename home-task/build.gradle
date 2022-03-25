@@ -19,24 +19,22 @@ dependencies {
 jar {
     archiveBaseName = 'artefact'
     destinationDirectory = file('artefacts')
-    archiveVersion =  '1.0'
+    ## archiveVersion =  '1.0'
     manifest {
         attributes 'Main-Class': 'com.test.Project'
     }
 }
 
-task "build_custom" (type:Exec) {
+task "build_custom" (type:Jar) {
     commandLine "gradle", "build"
 }
 
-task "test-custom" (type:Exec){
-    dependsOn ':home-task:build-custom'
-    commandLine "gradle", "test"
+task "test_custom"(type: Test, dependsOn: build_custom) {
+    useJUnit()
 }
 
-task hello {
-    dependsOn ':home-task:test-custom'
+task "hello"(dependsOn: test_custom) {
     doLast {
-        println "Task hello"
+        println "Hello World"
     }
 }

@@ -24,7 +24,7 @@ jar {
     }
 }
 
-task "build_custom" (type:Jar) {
+task "build_custom" (type:Exec) {
     commandLine "gradle", "build"
 }
 
